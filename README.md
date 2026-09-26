@@ -4,6 +4,8 @@
 
 固定輸出 **1080 × 1920、30 fps、8.93 秒**。保留原片正面卡框及原始音軌；最後 0.1 秒畫面拉長到 3 秒，音訊不拉長、不額外淡出。名字及主要文字由字體重新渲染，頭像使用獨立原圖，並非放大舊預覽片。
 
+<img src="docs/preview.jpg" width="360" alt="Winchman invitation 最後畫面，正面卡框及高清文字" />
+
 ## 1. 安裝
 
 需要 Python 3.9+ 和 FFmpeg（包括 ffprobe）。macOS 可用 `brew install ffmpeg`；Ubuntu 可用 `sudo apt install ffmpeg`；Windows 安裝 FFmpeg 後把 bin 加入 PATH。
