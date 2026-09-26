@@ -62,6 +62,8 @@ python invitation.py --csv examples/recipients.csv --output output/team --worker
 
 **素材限制：** Canva 資產接口未授權下載原始品牌圖，目前 KBW／Upbit／renaiss community 小標誌仍由既有預覽抽取，解像度較低；主要文字及頭像已重建。取得官方透明高清 PNG 後，以同名檔案替換 `assets/kbw.png`、`assets/upbit.png`、`assets/renaiss-mark.png`，保持 config 中的顯示尺寸即可。程式不會偽造或重畫品牌標誌。細頭像會在 QA JSON 標記 `avatar_below_display_resolution`。
 
+2026-09-26 收到的三張補充圖片已保留於 [`assets/supplied/2026-09-26/`](assets/supplied/2026-09-26/README.md)，但未通過替換檢查：全部沒有透明背景，KBW 為全白圖，Upbit 接近全白，Renaiss 只有 109 × 123。**高清 logo 問題尚未解決**，渲染仍使用原有小標誌。
+
 ## 驗證
 
 每次輸出自動檢查全片解碼、1080 × 1920、268 幀、30 fps，並比對原始音訊封包 SHA-256。長 handle 自動縮字，文字超出安全區會停止。亦會輸出末段畫面，請人工確認頭像、名字、活動內容及淡入效果。

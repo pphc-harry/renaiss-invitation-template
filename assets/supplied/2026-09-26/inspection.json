@@ -1,0 +1,83 @@
+{
+  "status": "rejected_for_active_rendering",
+  "sources": [
+    {
+      "file": "assets/supplied/2026-09-26/upbit.png",
+      "format": "PNG",
+      "size": [
+        138,
+        73
+      ],
+      "mode": "RGB",
+      "has_alpha": false,
+      "channel_extrema": [
+        [
+          250,
+          255
+        ],
+        [
+          252,
+          255
+        ],
+        [
+          250,
+          255
+        ]
+      ],
+      "sha256": "7df81c82d79ce640c9192cbcdae4184aadcf77c9c6a389f942d735fb6a0a878f",
+      "active": false
+    },
+    {
+      "file": "assets/supplied/2026-09-26/KBW.png",
+      "format": "PNG",
+      "size": [
+        191,
+        36
+      ],
+      "mode": "RGB",
+      "has_alpha": false,
+      "channel_extrema": [
+        [
+          255,
+          255
+        ],
+        [
+          255,
+          255
+        ],
+        [
+          255,
+          255
+        ]
+      ],
+      "sha256": "770731bbbe1dc1f6e3933873c9f620343acf20d567595160ece714cec5019f70",
+      "active": false
+    },
+    {
+      "file": "assets/supplied/2026-09-26/renaiss_community_.png",
+      "format": "PNG",
+      "size": [
+        109,
+        123
+      ],
+      "mode": "RGB",
+      "has_alpha": false,
+      "channel_extrema": [
+        [
+          0,
+          255
+        ],
+        [
+          0,
+          255
+        ],
+        [
+          0,
+          255
+        ]
+      ],
+      "sha256": "275d0386d098fa0878a25a93825346056771a589ba9a332db56ba3ed62aa40a6",
+      "active": false
+    }
+  ]
+}
