@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 6,
   "resolution": [
     1080,
     1920
@@ -16,7 +16,11 @@
       "y": 443,
       "size": 84,
       "weight": 800,
-      "max_width": 510
+      "max_width": 510,
+      "gradient": {
+        "start": 0.72,
+        "end_alpha": 70
+      }
     },
     {
       "text": "{handle}",
@@ -45,11 +49,21 @@
     {
       "text": "PARTY ON",
       "x": 254,
-      "y": 1018,
+      "y": 1053,
       "size": 41,
       "weight": 800,
       "max_width": 212,
-      "anchor": "lt"
+      "anchor": "lb"
+    },
+    {
+      "text": "with",
+      "x": 691,
+      "y": 1053,
+      "size": 15,
+      "weight": 600,
+      "max_width": 34,
+      "anchor": "lb",
+      "italic": true
     },
     {
       "text": "3 OCT 2026 | 6–11 PM KST",
@@ -64,16 +78,18 @@
     {
       "file": "assets/kbw.png",
       "x": 479,
-      "y": 1013,
+      "y": 1008,
       "width": 199,
-      "height": 45
+      "height": 45,
+      "vertical_align": "bottom"
     },
     {
       "file": "assets/upbit.png",
-      "x": 686,
-      "y": 1017,
-      "width": 131,
-      "height": 45
+      "x": 734,
+      "y": 1008,
+      "width": 83,
+      "height": 45,
+      "vertical_align": "bottom"
     },
     {
       "file": "assets/renaiss-mark.png",

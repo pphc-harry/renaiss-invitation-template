@@ -78,4 +78,10 @@ python -m unittest discover -s tests -v
 
 ## 文字出場時間
 
+已對照 Canva 第 3 頁補回 KBW 與 Upbit 之間的細斜體 `with`，並調整 Upbit 顯示區域以保留間距。`INVITATION` 標題由右側 O、N 漸淡，透出原片背景；`texts[].gradient` 設定漸層起點比例與末端透明度，字形仍以雙倍解析度渲染。
+
 `template.json` 的 `timing.start` 為 4.933333 秒，`fade_duration` 為 0.4 秒；約第 5 秒開始出字，5.333333 秒完全顯示。此修正將 v3 的 5.933333 秒出場提早 1 秒。
+
+## 品牌行水平對齊
+
+依 2026-09-26 Harry 截圖，`PARTY ON`、KBW、斜體 `with` 與 Upbit 的可見字形底緣統一在 y=1053。文字使用 `lb` 底部錨點；兩個 logo 使用 `vertical_align: bottom`，裁除透明留白後按比例縮放。QA 的 `display_box` 可核對 logo 底緣。

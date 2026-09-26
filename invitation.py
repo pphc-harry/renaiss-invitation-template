@@ -11,7 +11,7 @@ import subprocess
 from pathlib import Path
 
 import requests
-from PIL import Image, ImageDraw, ImageFont, ImageOps
+from PIL import Image, ImageChops, ImageDraw, ImageFont, ImageOps
 
 ROOT = Path(__file__).resolve().parent
 
@@ -69,7 +69,32 @@ def make_overlay(row, cfg, output):
         box = draw.textbbox(xy,text,font=f,anchor=anchor)
         if not (210*scale <= box[0] < box[2] <= 855*scale and 415*scale <= box[1] < box[3] <= 1390*scale):
             raise ValueError('Text would touch card frame: '+text)
-        draw.text(xy,text,font=f,fill='white',anchor=anchor)
+        # Render optional title transparency and italic treatment from outlines.
+        if spec.get('gradient') or spec.get('italic'):
+            mask = Image.new('L', (box[2]-box[0], box[3]-box[1]))
+            ImageDraw.Draw(mask).text((xy[0]-box[0],xy[1]-box[1]),text,
+                                     font=f,fill=255,anchor=anchor)
+            if spec.get('gradient'):
+                gradient = spec['gradient']
+                start = gradient['start'] * (mask.width-1)
+                end_alpha = gradient['end_alpha']
+                ramp = Image.new('L', (mask.width,1))
+                ramp.putdata([round(255+(end_alpha-255)*max(0,(x-start)/max(1,mask.width-1-start)))
+                              for x in range(mask.width)])
+                mask = ImageChops.multiply(mask,ramp.resize(mask.size))
+            if spec.get('italic'):
+                skew = 0.2
+                extra = round(mask.height*skew)
+                mask = mask.transform((mask.width+extra,mask.height),Image.Transform.AFFINE,
+                                      (1,skew,-extra,0,1,0),Image.Resampling.BICUBIC)
+                box = (box[0],box[1],box[2]+extra,box[3])
+                if box[2] > 855*scale:
+                    raise ValueError('Italic text would touch card frame: '+text)
+            painted = Image.new('RGBA',mask.size,'white')
+            painted.putalpha(mask)
+            layer.alpha_composite(painted,(box[0],box[1]))
+        else:
+            draw.text(xy,text,font=f,fill='white',anchor=anchor)
         boxes.append({'text':text,'box':[v/scale for v in box]})
     avatar = avatar_image(row)
     native_size = avatar.size
@@ -89,11 +114,12 @@ def make_overlay(row, cfg, output):
         artwork_size = mark.size
         target = (spec['width']*scale, spec['height']*scale)
         mark = ImageOps.contain(mark, target, Image.Resampling.LANCZOS)
+        y_offset = target[1]-mark.height if spec.get('vertical_align') == 'bottom' else (target[1]-mark.height)//2
         position = (spec['x']*scale+(target[0]-mark.width)//2,
-                    spec['y']*scale+(target[1]-mark.height)//2)
+                    spec['y']*scale+y_offset)
         layer.alpha_composite(mark, position)
         marks.append({'file':spec['file'], 'source_size':source_size,
-                      'artwork_size':artwork_size, 'display_size':[mark.width/scale,mark.height/scale],
+                      'artwork_size':artwork_size, 'display_box':[position[0]/scale,position[1]/scale,(position[0]+mark.width)/scale,(position[1]+mark.height)/scale], 'display_size':[mark.width/scale,mark.height/scale],
                       'below_display_resolution':artwork_size[0]<mark.width/scale or artwork_size[1]<mark.height/scale})
     draw.line((496*scale,1104*scale,584*scale,1104*scale),fill=(255,255,255,210),width=2*scale)
     layer = layer.resize((1080,1920),Image.Resampling.LANCZOS)
