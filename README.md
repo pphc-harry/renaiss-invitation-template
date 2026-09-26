@@ -60,9 +60,11 @@ python invitation.py --csv examples/recipients.csv --output output/team --worker
 
 `assets/background.mp4` 是 8.93 秒的正面卡框底片。`assets/original.mp4` 供複製原音軌。若要更換背景或影片時長，需要同步修改程式的固定時間及驗證值，不能只替換檔案。
 
-**素材限制：** Canva 資產接口未授權下載原始品牌圖，目前 KBW／Upbit／renaiss community 小標誌仍由既有預覽抽取，解像度較低；主要文字及頭像已重建。取得官方透明高清 PNG 後，以同名檔案替換 `assets/kbw.png`、`assets/upbit.png`、`assets/renaiss-mark.png`，保持 config 中的顯示尺寸即可。程式不會偽造或重畫品牌標誌。細頭像會在 QA JSON 標記 `avatar_below_display_resolution`。
+**品牌素材：** 已用 Harry 在 2026-09-26 提供的 `invitation_logo.zip` 替換 `assets/kbw.png`、`assets/upbit.png`、`assets/renaiss-mark.png`。三張均保留原始 PNG 及透明背景；渲染時裁走透明留白、按原比例縮放並置中，避免 Upbit 留白令圖案過小或 logo 被拉伸。
 
-2026-09-26 收到的三張補充圖片已保留於 [`assets/supplied/2026-09-26/`](assets/supplied/2026-09-26/README.md)，但未通過替換檢查：全部沒有透明背景，KBW 為全白圖，Upbit 接近全白，Renaiss 只有 109 × 123。**高清 logo 問題尚未解決**，渲染仍使用原有小標誌。
+**解像度限制仍在：** KBW 為 191 × 36、Upbit 為 138 × 73（有效圖案 89 × 24）、Renaiss 為 109 × 123。透明背景及缺失圖案問題已解決，但這些不是高清原圖，放大不會增加細節。影片仍輸出 1080 × 1920；每次 QA JSON 的 `brand_marks` 會列出來源尺寸、有效圖案尺寸、顯示尺寸及 `below_display_resolution`。細頭像另以 `avatar_below_display_resolution` 標記。日後可換入更高解像度的透明 PNG，保持 config 顯示區域不變。
+
+上一批錯誤的白底附件只保留於 [`assets/supplied/2026-09-26/`](assets/supplied/2026-09-26/README.md) 作來源紀錄，不會用於渲染。
 
 ## 驗證
 

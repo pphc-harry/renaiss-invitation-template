@@ -78,15 +78,28 @@ def make_overlay(row, cfg, output):
     mask = Image.new('L',avatar.size)
     ImageDraw.Draw(mask).ellipse((0,0,diameter*scale-1,diameter*scale-1),fill=255)
     layer.paste(avatar,(x*scale,y*scale),mask)
+    marks = []
     for spec in cfg['marks']:
         mark = Image.open(ROOT/spec['file']).convert('RGBA')
-        mark = mark.resize((spec['width']*scale,spec['height']*scale),Image.Resampling.LANCZOS)
-        layer.alpha_composite(mark,(spec['x']*scale,spec['y']*scale))
+        source_size = mark.size
+        bounds = mark.getchannel('A').getbbox()
+        if bounds is None:
+            raise ValueError('Brand mark is fully transparent: '+spec['file'])
+        mark = mark.crop(bounds)
+        artwork_size = mark.size
+        target = (spec['width']*scale, spec['height']*scale)
+        mark = ImageOps.contain(mark, target, Image.Resampling.LANCZOS)
+        position = (spec['x']*scale+(target[0]-mark.width)//2,
+                    spec['y']*scale+(target[1]-mark.height)//2)
+        layer.alpha_composite(mark, position)
+        marks.append({'file':spec['file'], 'source_size':source_size,
+                      'artwork_size':artwork_size, 'display_size':[mark.width/scale,mark.height/scale],
+                      'below_display_resolution':artwork_size[0]<mark.width/scale or artwork_size[1]<mark.height/scale})
     draw.line((496*scale,1104*scale,584*scale,1104*scale),fill=(255,255,255,210),width=2*scale)
     layer = layer.resize((1080,1920),Image.Resampling.LANCZOS)
     layer.save(output)
     return {'avatar_source_size':native_size,'avatar_below_display_resolution':min(native_size)<diameter,
-            'text_boxes':boxes,'alpha_bounds':layer.getbbox()}
+            'text_boxes':boxes,'alpha_bounds':layer.getbbox(),'brand_marks':marks}
 
 
 def run(args):
@@ -121,7 +134,6 @@ def render(row,cfg,out,overwrite=False,crf=18):
     run(['ffmpeg','-v','error','-y','-i',str(ROOT/'assets/background.mp4'),'-loop','1','-framerate','30','-i',str(overlay),'-i',str(ROOT/'assets/original.mp4'),'-filter_complex_threads','1','-filter_complex',filters,'-map','[v]','-map','2:a:0','-t','8.933333','-c:v','libx264','-threads','2','-preset','fast','-crf',str(crf),'-pix_fmt','yuv420p','-c:a','copy','-movflags','+faststart',str(video)])
     qa.update(verify(video))
     qa['handle']=handle
-    qa['brand_marks']='Original preview-derived marks; replace with high-resolution PNGs when available'
     (out/'qa'/(handle+'.json')).write_text(json.dumps(qa,indent=2),encoding='utf-8')
     run(['ffmpeg','-v','error','-y','-ss','8','-i',str(video),'-frames:v','1',str(out/'qa'/(handle+'.png'))])
     print(handle+': verified 1080x1920, 268 frames, original audio'+(' (small source avatar)' if qa['avatar_below_display_resolution'] else ''),flush=True)

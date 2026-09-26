@@ -3,7 +3,7 @@
 Original bytes supplied by Harry in Discord message `1553423495461871708`.
 Retrieved from the original Discord CDN attachment URLs and compared with the bridge attachments. All three files decode as RGB PNGs, despite the message MIME labels saying WebP. None has an alpha channel or PNG transparency metadata.
 
-These are archived source candidates, **not active rendering assets**. They do not resolve the outstanding logo-quality issue.
+These are archived source candidates, **not active rendering assets**. They do not resolve the outstanding logo-quality issue. Later the same day, Harry supplied corrected transparent PNGs in `invitation_logo.zip` (message `1553424336885383320`); those are now the active assets. See `docs/ASSETS.md`. The assessment below records the earlier rejected candidates only.
 
 - `KBW.png`: 191 × 36; every RGB pixel is (255, 255, 255). No visible logo information is present.
 - `upbit.png`: 138 × 73; RGB extrema are R 250–255, G 252–255, B 250–255. The white logo is almost invisible against an opaque white background.
