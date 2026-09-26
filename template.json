@@ -1,18 +1,90 @@
 {
-  "version": 3,
-  "resolution": [1080, 1920],
-  "avatar": [425, 580, 230],
+  "version": 4,
+  "resolution": [
+    1080,
+    1920
+  ],
+  "avatar": [
+    425,
+    580,
+    230
+  ],
   "texts": [
-    {"text": "INVITATION", "x": 540, "y": 443, "size": 84, "weight": 800, "max_width": 510},
-    {"text": "{handle}", "x": 540, "y": 835, "size": 31, "weight": 800, "max_width": 590},
-    {"text": "You’re invited to", "x": 540, "y": 923, "size": 24, "weight": 400, "max_width": 380},
-    {"text": "RENAISS COMMUNITY", "x": 540, "y": 971, "size": 41, "weight": 800, "max_width": 520},
-    {"text": "PARTY ON", "x": 254, "y": 1018, "size": 41, "weight": 800, "max_width": 212, "anchor": "lt"},
-    {"text": "3 OCT 2026 | 6–11 PM KST", "x": 540, "y": 1160, "size": 30, "weight": 800, "max_width": 510}
+    {
+      "text": "INVITATION",
+      "x": 540,
+      "y": 443,
+      "size": 84,
+      "weight": 800,
+      "max_width": 510
+    },
+    {
+      "text": "{handle}",
+      "x": 540,
+      "y": 835,
+      "size": 31,
+      "weight": 800,
+      "max_width": 590
+    },
+    {
+      "text": "You’re invited to",
+      "x": 540,
+      "y": 923,
+      "size": 24,
+      "weight": 400,
+      "max_width": 380
+    },
+    {
+      "text": "RENAISS COMMUNITY",
+      "x": 540,
+      "y": 971,
+      "size": 41,
+      "weight": 800,
+      "max_width": 520
+    },
+    {
+      "text": "PARTY ON",
+      "x": 254,
+      "y": 1018,
+      "size": 41,
+      "weight": 800,
+      "max_width": 212,
+      "anchor": "lt"
+    },
+    {
+      "text": "3 OCT 2026 | 6–11 PM KST",
+      "x": 540,
+      "y": 1160,
+      "size": 30,
+      "weight": 800,
+      "max_width": 510
+    }
   ],
   "marks": [
-    {"file": "assets/kbw.png", "x": 479, "y": 1013, "width": 199, "height": 45},
-    {"file": "assets/upbit.png", "x": 686, "y": 1017, "width": 131, "height": 45},
-    {"file": "assets/renaiss-mark.png", "x": 478, "y": 1242, "width": 125, "height": 134}
-  ]
+    {
+      "file": "assets/kbw.png",
+      "x": 479,
+      "y": 1013,
+      "width": 199,
+      "height": 45
+    },
+    {
+      "file": "assets/upbit.png",
+      "x": 686,
+      "y": 1017,
+      "width": 131,
+      "height": 45
+    },
+    {
+      "file": "assets/renaiss-mark.png",
+      "x": 478,
+      "y": 1242,
+      "width": 125,
+      "height": 134
+    }
+  ],
+  "timing": {
+    "start": 4.933333,
+    "fade_duration": 0.4
+  }
 }

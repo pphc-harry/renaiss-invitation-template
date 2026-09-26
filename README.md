@@ -71,3 +71,7 @@ python -m unittest discover -s tests -v
 ```
 
 不含公司登入資訊、大使命冊、私人 profile 記錄或 Drive 上載憑證。字體 Inter 隨附 SIL Open Font License；活動影片、品牌圖和示例頭像只供獲授權的 Renaiss 團隊使用，沒有授予第三方再分發權。詳見 `docs/ASSETS.md`。
+
+## 文字出場時間
+
+`template.json` 的 `timing.start` 為 4.933333 秒，`fade_duration` 為 0.4 秒；約第 5 秒開始出字，5.333333 秒完全顯示。此修正將 v3 的 5.933333 秒出場提早 1 秒。

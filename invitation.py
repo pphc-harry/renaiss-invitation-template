@@ -116,7 +116,8 @@ def render(row,cfg,out,overwrite=False,crf=18):
         raise FileExistsError(str(video)+' already exists; pass --overwrite to replace')
     overlay=out/'overlays'/(handle+'.png')
     qa=make_overlay(row,cfg,overlay)
-    filters='[1:v]format=rgba,fade=t=in:st=5.933333:d=0.4:alpha=1[card];[0:v][card]overlay=0:0:shortest=1[v]'
+    timing = cfg.get('timing', {'start': 4.933333, 'fade_duration': 0.4})
+    filters=f"[1:v]format=rgba,fade=t=in:st={timing['start']}:d={timing['fade_duration']}:alpha=1[card];[0:v][card]overlay=0:0:shortest=1[v]"
     run(['ffmpeg','-v','error','-y','-i',str(ROOT/'assets/background.mp4'),'-loop','1','-framerate','30','-i',str(overlay),'-i',str(ROOT/'assets/original.mp4'),'-filter_complex_threads','1','-filter_complex',filters,'-map','[v]','-map','2:a:0','-t','8.933333','-c:v','libx264','-threads','2','-preset','fast','-crf',str(crf),'-pix_fmt','yuv420p','-c:a','copy','-movflags','+faststart',str(video)])
     qa.update(verify(video))
     qa['handle']=handle
